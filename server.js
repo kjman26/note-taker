@@ -3,9 +3,9 @@ const fs = require('fs');
 const express = require('express');
 const app = express();
 const bodyParser = require ('body_parser');
-//const chris = require('chris');
-// const generateId = require('generate_id');
-// const errorCatcher = require('errorCatcher');
+const chris = require('chris');
+const generateId = require('generate_id');
+const errorCatcher = require('errorCatcher');
 
 //middleware
 
