@@ -30,8 +30,33 @@ app.get('/notes', (req, res) => {
 
 //get notes from db.json
 app.get('/api/notes', (req, res, next) => {
-    fs.readFile
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        err ? next(err) : res.status(200).send(data)
+    })
 });
+
+//post new notes within a new variable referenced in package.json and takes data from db.json and then pushing the newly added note into an array. then write to db.json as a string
+
+app.post('/api/notes', (req, res) => {
+    const note = {
+        id: generateId({
+            length: 8,
+            useLetters: true
+        }),
+        title: req.body.title,
+        text: req.body.text
+    }
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        if (err) {next(err)
+        const notes = JSON.parse(data)
+            notes.push(note);
+        fs.writeFile('./db/db.json', JSON.stringify(notes), (err) => {
+            if (err) {next(err)}
+            res.status(200).send(note)
+        })}
+    }
+    )
+})
 
 
 
