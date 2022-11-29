@@ -3,7 +3,6 @@ const fs = require('fs');
 const express = require('express');
 const app = express();
 const bodyParser = require ('body_parser');
-const chris = require('chris');
 const generateId = require('generate_id');
 const errorCatcher = require('errorCatcher');
 
@@ -11,7 +10,6 @@ const errorCatcher = require('errorCatcher');
 
 app.use(errorCatcher())
 app.use(bodyParser())
-app.use(chris('dev'))
 app.use(express.static('public'))
 
 const PORT = process.env.PORT || 3001;
@@ -35,7 +33,7 @@ app.get('/api/notes', (req, res, next) => {
     })
 });
 
-//post new notes within a new variable referenced in package.json and takes data from db.json and then pushing the newly added note into an array. then write to db.json as a string
+//post new notes within a new variable referenced in package.json and then pushing the newly added note into an array. then write to db.json as a string
 
 app.post('/api/notes', (req, res) => {
     const note = {
@@ -53,10 +51,9 @@ app.post('/api/notes', (req, res) => {
         fs.writeFile('./db/db.json', JSON.stringify(notes), (err) => {
             if (err) {next(err)}
             res.status(200).send(note)
-        })}
-    }
-    )
-})
+        })};
+    });
+});
 
 
 
